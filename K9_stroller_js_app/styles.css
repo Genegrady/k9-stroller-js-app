@@ -46,7 +46,7 @@ img.image {
     float: left;
     height: 400px;
     padding: 50px;
-    border: 3px solid black;
+    /* border: 3px solid black; */
     box-sizing: border-box;
     display: inline-block;
     align-items: center;
@@ -105,18 +105,18 @@ mazeImg.image{
     color: white;
     box-shadow: inset (4px) (4px) 0px 0px #4AA52E;
 
-    &:hover,
-    &:focus {
+    :hover,
+    :focus {
         background: #76c442;
         box-shadow: inset (4px*1.5) (4px*1.5) 0px 0px #4AA52E;
     }
 
-    &:active {
+    :active {
         box-shadow: inset 4px 4px 0px 0px #4AA52E;
     }
 
-    &:before,
-    &:after {
+    :before,
+    :after {
     content: '';
         position: absolute;
         width: 100%;
@@ -124,14 +124,14 @@ mazeImg.image{
         box-sizing: content-box;
     }
 
-    &:before {
+    :before {
         top: 6px;
         left: 0;
         border-top: 6px black solid;
         border-bottom: 6px black solid;
     }
 
-    &:after {
+    :after {
         left: 6px;
         top: 0;
         border-left: 6px black solid;
