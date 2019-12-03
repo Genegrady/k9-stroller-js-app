@@ -53,17 +53,31 @@ fetch(`http://localhost:3000/characters`)
             canvas.id = "game";
             canvas.width = 800;
             canvas.height = 800;
-            
-            fetch(`http://localhost:3000/characters/${card.id}`)
-            .then(resp => resp.json())
-            .then(json_resp => console.log(json_resp))
-            debugger
             let sideDiv = document.createElement("div")
             sideDiv.className = "score"
+            let scoreHeader = document.createElement("p")
+            scoreHeader.className = "scoreh"
+            scoreHeader.innerText = "High Scores"
+            let scoreUl = document.createElement("ul")
+            sideDiv.append(scoreHeader,scoreUl)
             let leftSideDiv = document.createElement("div")
-            leftSideDiv = "mazeimage"
-            let charImage = document.createElement("img")
-            body.append(canvas, sideDiv)
+            leftSideDiv.className = "mazeimage"
+            let mazeImg = document.createElement("img")
+            mazeImg.className = "image"
+            
+            mazeImg.src = card.image
+            leftSideDiv.append(mazeImg)
+            fetch(`http://localhost:3000/characters/${card.id}`)
+            .then(resp => resp.json())
+            .then(char => char.scores.forEach(score => {
+                let scoreLi = document.createElement("li")
+                scoreLi.className = "allscore"
+                scoreLi.innerText = `${score.username}: ${score.amt}`
+                scoreUl.append(scoreLi)
+            }))
+            // debugger
+           
+            body.append(header, canvas, sideDiv, leftSideDiv)
             })
             
 
