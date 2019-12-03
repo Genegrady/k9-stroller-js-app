@@ -1,3 +1,4 @@
+
 let body = document.querySelector("body")
 let header = document.createElement("div")
 header.className = "header"
@@ -46,8 +47,28 @@ fetch(`http://localhost:3000/characters`)
         cardButton.className = "button"
         cardButton.innerText = "Choose Character"
         cardHolder.append(cardName,cardExp,cardBio, cardButton)
-        
+        cardButton.addEventListener(`click`, (event) => {
+            body.innerHTML = " "
+            let canvas = document.createElement("canvas")
+            canvas.id = "game";
+            canvas.width = 800;
+            canvas.height = 800;
+            
+            fetch(`http://localhost:3000/characters/${card.id}`)
+            .then(resp => resp.json())
+            .then(json_resp => console.log(json_resp))
+            debugger
+            let sideDiv = document.createElement("div")
+            sideDiv.className = "score"
+            let leftSideDiv = document.createElement("div")
+            leftSideDiv = "mazeimage"
+            let charImage = document.createElement("img")
+            body.append(canvas, sideDiv)
+            })
+            
+
+        }
 
 
-}
 })
+
