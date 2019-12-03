@@ -53,17 +53,22 @@ fetch(`http://localhost:3000/characters`)
             canvas.id = "game";
             canvas.width = 800;
             canvas.height = 800;
-            let sideDiv = document.createElement("div")
+            
             fetch(`http://localhost:3000/characters/${card.id}`)
             .then(resp => resp.json())
             .then(json_resp => console.log(json_resp))
+            debugger
+            let sideDiv = document.createElement("div")
+            sideDiv.className = "score"
+            let leftSideDiv = document.createElement("div")
+            leftSideDiv = "mazeimage"
+            let charImage = document.createElement("img")
             body.append(canvas, sideDiv)
+            })
             
-            
 
-        })
+        }
 
 
-}
 })
 
