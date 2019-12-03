@@ -1,5 +1,4 @@
-
-const ctx = null;
+let ctx = null;
 const gameMap = [
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0,
@@ -24,7 +23,7 @@ const gameMap = [
 ];
 var tileW = 40, tileH = 40;
 var mapW = 20, mapH = 20;
-var currentSecond = 0, frameCount = 0, framesLastSecond = 0, lastFrameTime = 0;
+var currentSecond = 0, frameCount = 0, framesLastSecond = 0, lastFrameTime = 0; score = 0
 
 var keysDown = {
 	37 : false,
@@ -102,6 +101,7 @@ Character.prototype.processMovement = function(t)
 
 		this.position[0] = Math.round(this.position[0]);
 		this.position[1] = Math.round(this.position[1]);
+		score ++;
 	}
 
 	return true;
@@ -112,8 +112,13 @@ function toIndex(x, y)
 	return((y * mapW) + x);
 }
 
-window.onload = function()
+let canvasDrawing = function()
 {
+	let canvas = document.createElement("canvas")
+        canvas.id = "game";
+        canvas.width = 800;
+		canvas.height = 800;
+	body.append(canvas)	
 	ctx = document.getElementById('game').getContext("2d");
 	requestAnimationFrame(drawGame);
 	ctx.font = "bold 10pt sans-serif";
@@ -128,6 +133,34 @@ window.onload = function()
 	viewport.screen = [document.getElementById('game').width,
 		document.getElementById('game').height];
 };
+//TIME_______________________________________________________
+
+let timeLeft = 60;
+	var downloadTimer = setInterval(function(evt){
+  	timeLeft -= 1;
+  		if(timeLeft <= 0){
+    		clearInterval(downloadTimer);
+			let name = window.prompt("Please Enter Your Name")
+			// debugger
+			let scoreAmt = card.scores.amt 
+			let scoreName = card.scores.username
+			fetch(`http://localhost:3000/characters/${card.id}`, {
+			  method:'POST',
+			 headers: { 
+				 'Content-type': 'application/json',
+				 'accept': 'application/json'
+			 },
+			 body: JSON.stringify({
+			scoreAmt: score,
+			scoreName: name
+			  })
+			})
+			.then(resp => resp.json())
+			.then(console.log)
+		  }
+		//   debugger
+	}, 1000);
+	//___________________________________________________________
 
 function drawGame()
 {
@@ -135,7 +168,6 @@ function drawGame()
 
 	var currentFrameTime = Date.now();
 	var timeElapsed = currentFrameTime - lastFrameTime;
-
 	var sec = Math.floor(Date.now()/1000);
 	if(sec!=currentSecond)
 	{
@@ -185,7 +217,8 @@ function drawGame()
 		player.dimensions[0], player.dimensions[1]);
 
 	ctx.fillStyle = "#ff0000";
-	ctx.fillText("FPS: " + framesLastSecond, 10, 20);
+	ctx.fillText("Score: " + score, 10, 20);
+	ctx.fillText("Time Left: " + timeLeft, 10, 40);
 
 	lastFrameTime = currentFrameTime;
 	requestAnimationFrame(drawGame);
