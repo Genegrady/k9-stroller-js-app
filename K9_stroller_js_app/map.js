@@ -1,5 +1,6 @@
 
-const ctx = null;
+
+let ctx = null;
 const gameMap = [
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0,
@@ -112,8 +113,13 @@ function toIndex(x, y)
 	return((y * mapW) + x);
 }
 
-window.onload = function()
+let canvasDrawing = function()
 {
+	let canvas = document.createElement("canvas")
+        canvas.id = "game";
+        canvas.width = 800;
+		canvas.height = 800;
+	body.append(canvas)	
 	ctx = document.getElementById('game').getContext("2d");
 	requestAnimationFrame(drawGame);
 	ctx.font = "bold 10pt sans-serif";
@@ -190,3 +196,4 @@ function drawGame()
 	lastFrameTime = currentFrameTime;
 	requestAnimationFrame(drawGame);
 }
+

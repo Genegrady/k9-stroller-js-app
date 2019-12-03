@@ -6,6 +6,11 @@
    width:100%;
     text-align:center;
 }
+.choose{
+    font-family: 'Press Start 2P', cursive;
+    text-align: center;
+    font-size: 30px;
+}
 
 img.image {
     max-width:100%;
@@ -26,6 +31,12 @@ img.image {
     
     /* box-align: center; */
 }
+.bio{
+    font-family: 'Press Start 2P', cursive;
+    text-align: center;
+    font-size: 10px;
+}
+
 
 .holder{
     font-family: 'Press Start 2P', cursive;
@@ -52,7 +63,7 @@ canvas {
 }
 .mazeimage{
     width: 300px;
-    height: 300px;
+    height: 250px;
     position: fixed;
     right: 75%;
     top:25%;
@@ -72,7 +83,7 @@ mazeImg.image{
 .allscore{
     font-family: 'Press Start 2P', cursive;
     text-align: center;
-    font-size: 20px;
+    font-size: 15px;
 }
 
 .scoreh{
