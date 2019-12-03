@@ -1,4 +1,3 @@
-
 let body = document.querySelector("body")
 let header = document.createElement("div")
 header.className = "header"
@@ -7,8 +6,8 @@ let headerH2 = document.createElement("h2")
 headerH2.innerText = "Choose Your Character"
 headerH2.className = "choose"
 headerImage.src = "https://fontmeme.com/permalink/191203/ad8b7333cf216b2eb89600beacd204c7.png"
-header.append(headerImage, headerH2)
-body.append(header)
+header.append(headerImage)
+body.append(header, headerH2)
 let cardHolder = document.createElement("div")
 cardHolder.className = "holder"
 body.append(cardHolder)
@@ -53,11 +52,12 @@ fetch(`http://localhost:3000/characters`)
         cardHolder.append(cardName,cardExp,cardBio, cardButton)
         cardButton.addEventListener(`click`, (event) => {
             body.innerHTML = " "
+            body.append(header)
             // let canvas = document.createElement("canvas")
             // canvas.id = "game";
             // canvas.width = 800;
             // canvas.height = 800;
-            canvasDrawing()
+            
             let sideDiv = document.createElement("div")
             sideDiv.className = "score"
             let scoreHeader = document.createElement("p")
@@ -80,9 +80,11 @@ fetch(`http://localhost:3000/characters`)
                 scoreLi.innerText = `${score.username}: ${score.amt}`
                 scoreUl.append(scoreLi)
             }))
+            // 
+            
+            body.append(sideDiv, leftSideDiv)
+            canvasDrawing()
             // debugger
-           
-            body.append(header, sideDiv, leftSideDiv)
             })
             
 
@@ -90,4 +92,3 @@ fetch(`http://localhost:3000/characters`)
 
 
 })
-
