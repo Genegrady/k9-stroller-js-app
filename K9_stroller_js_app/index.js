@@ -1,4 +1,3 @@
-
 let body = document.querySelector("body")
 let header = document.createElement("div")
 header.className = "header"
@@ -58,7 +57,7 @@ fetch(`http://localhost:3000/characters`)
             // canvas.id = "game";
             // canvas.width = 800;
             // canvas.height = 800;
-            canvasDrawing()
+            
             let sideDiv = document.createElement("div")
             sideDiv.className = "score"
             let scoreHeader = document.createElement("p")
@@ -81,9 +80,11 @@ fetch(`http://localhost:3000/characters`)
                 scoreLi.innerText = `${score.username}: ${score.amt}`
                 scoreUl.append(scoreLi)
             }))
-            // debugger
-           
+            // 
+            
             body.append(sideDiv, leftSideDiv)
+            canvasDrawing()
+            // debugger
             })
             
 
@@ -91,4 +92,3 @@ fetch(`http://localhost:3000/characters`)
 
 
 })
-
