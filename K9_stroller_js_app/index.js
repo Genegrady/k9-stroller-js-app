@@ -1,4 +1,7 @@
 let body = document.querySelector("body")
+body.style.backgroundImage = "url('https://3.bp.blogspot.com/-sbUTuZkZE7w/WoCOgbGpZnI/AAAAAAAAD6o/e8h4wg67xro8Q9wK4ya2nJDTm7yR1TKewCLcBGAs/s1600/erfrischungsgetraenk_minus_com_iDLpq7jh8LiZZ.jpg')"
+body.style.backgroundSize="100%";
+body.style.backgroundRepeat="absolute";
 let header = document.createElement("div")
 header.className = "header"
 let headerImage = document.createElement("img")
@@ -76,9 +79,24 @@ fetch(`http://localhost:3000/characters`)
             .then(resp => resp.json())
             .then(char => char.scores.forEach(score => {
                 let scoreLi = document.createElement("li")
+                let deleteButton = document.createElement("button")
+                deleteButton.className = "delete"
+                deleteButton.innerText = "x"
                 scoreLi.className = "allscore"
                 scoreLi.innerText = `${score.username}: ${score.amt}`
+                scoreLi.append(deleteButton)
                 scoreUl.append(scoreLi)
+                //     deleteButton.addEventListener("click", {
+            //         fetch(`http://localhost:3000/characters/${card.id}/scores`, {
+            //           method:'DELETE'
+            //     })
+            //     .then(r => r.json())
+            //     .then(() =>{
+            //         scoreLi.remove()
+            //     })
+            //     debugger
+            // })
+            // 
             }))
             // 
             
