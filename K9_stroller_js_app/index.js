@@ -13,7 +13,9 @@ header.append(headerImage)
 body.append(header, headerH2)
 let cardHolder = document.createElement("div")
 cardHolder.className = "holder"
-body.append(cardHolder)
+let imageHolder = document.createElement('div')
+imageHolder.className = "imgholder"
+body.append(cardHolder, imageHolder)
 
 document.addEventListener(`DOMContentLoaded`, () => {
 
@@ -33,7 +35,7 @@ fetch(`http://localhost:3000/characters`)
         cardImage.src = card.image
         
         imageWindow.append(cardImage)
-        body.append(imageWindow)
+        imageHolder.append(imageWindow)
         cardImage.addEventListener(`click`, (event) => {
             getSingleCard(card)
 
@@ -52,7 +54,8 @@ fetch(`http://localhost:3000/characters`)
         let cardButton = document.createElement("button")
         cardButton.className = "button"
         cardButton.innerText = "Choose Character"
-        cardHolder.append(cardName,cardExp,cardBio, cardButton)
+        cardHolder.append(cardName, cardExp, cardBio, cardButton)
+
         cardButton.addEventListener(`click`, (event) => {
             body.innerHTML = " "
             body.append(header)
@@ -102,6 +105,41 @@ fetch(`http://localhost:3000/characters`)
             
             body.append(sideDiv, leftSideDiv)
             canvasDrawing()
+            // debugger
+            var downloadTimer = setInterval(function(){
+                timeLeft -= 1;
+                    if(timeLeft <= 0){
+                      clearInterval(downloadTimer, card);
+                      let name = window.prompt("Please Enter Your Name")
+                      fetch(`http://localhost:3000/characters/${card.id}/scores`, {
+                       method:'POST',
+                       headers: { 
+                           'Content-type': 'application/json',
+                           'accept': 'application/json'
+                       },
+                       body: JSON.stringify({
+                         amt: score,
+                         username: name
+                        })
+                      })
+                      .then(resp => resp.json())
+                      .then(newScore=>{
+                        //    debugger
+
+                           card.scores.push({username: name, amt: score})
+                           scoreUl.innerHTML = ''
+                           card.scores.forEach((score) => {
+                            let scoreLi = document.createElement("li")
+                            scoreLi.className = "allscore"
+                            
+                            scoreLi.innerText = `${score.username}: ${score.amt}`
+                            scoreUl.append(scoreLi)
+                           })
+                            
+                      }
+                      )
+              }}, 1000);
+
             // debugger
             })
             
