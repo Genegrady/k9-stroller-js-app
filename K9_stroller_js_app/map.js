@@ -124,42 +124,27 @@ let canvasDrawing = function()
 	ctx.font = "bold 10pt sans-serif";
 
 	window.addEventListener("keydown", function(e) {
+		e.preventDefault()
 		if(e.keyCode>=37 && e.keyCode<=40) { keysDown[e.keyCode] = true; }
 	});
 	window.addEventListener("keyup", function(e) {
+		e.preventDefault()
 		if(e.keyCode>=37 && e.keyCode<=40) { keysDown[e.keyCode] = false; }
 	});
 
 	viewport.screen = [document.getElementById('game').width,
 		document.getElementById('game').height];
+		
 };
 //TIME_______________________________________________________
 
-let timeLeft = 60;
-	var downloadTimer = setInterval(function(evt){
-  	timeLeft -= 1;
-  		if(timeLeft <= 0){
-    		clearInterval(downloadTimer);
-			let name = window.prompt("Please Enter Your Name")
-			// debugger
-			let scoreAmt = card.scores.amt 
-			let scoreName = card.scores.username
-			fetch(`http://localhost:3000/characters/${card.id}`, {
-			  method:'POST',
-			 headers: { 
-				 'Content-type': 'application/json',
-				 'accept': 'application/json'
-			 },
-			 body: JSON.stringify({
-			scoreAmt: score,
-			scoreName: name
-			  })
-			})
-			.then(resp => resp.json())
-			.then(console.log)
-		  }
-		//   debugger
-	}, 1000);
+let timeLeft = 10;
+	// var downloadTimer = setInterval(function(){
+  	// timeLeft -= 1;
+  	// 	if(timeLeft <= 0){
+    // 		clearInterval(downloadTimer);
+	// 		let name = window.prompt("Please Enter Your Name")
+	// }}, 1000);
 	//___________________________________________________________
 
 function drawGame()
