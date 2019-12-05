@@ -46,7 +46,7 @@ var tileW = 20, tileH = 20;
 var mapW = 40, mapH = 40;
 var currentSecond = 0, frameCount = 0, framesLastSecond = 0, lastFrameTime = 0; score = 0
 
-var tileset = null, tilesetURL = "/Users/rubenvallejo/Desktop/AccessLabs/mod-3/mod3project/k9-stroller-js-app/K9_stroller_js_app/tileset.png", tilesetLoaded = false;
+var tileset = null, tilesetURL = "/Users/Owner/Desktop/k9stroller/K9_stroller_js_app/tileset.png", tilesetLoaded = false;
 
 var floorTypes = {
 	solid	: 0,

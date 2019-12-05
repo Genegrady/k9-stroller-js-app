@@ -107,13 +107,13 @@ fetch(`http://localhost:3000/characters`)
                 timeLeft -= 1;
                     if(timeLeft <= 0){
                       clearInterval(downloadTimer, card);
-                      
+                      scoreUl.innerHTML = ""
                       let name = window.prompt("Please Enter Your Name")
                       let grabCanvas = document.querySelector('#game')
                       grabCanvas.parentNode.removeChild(grabCanvas)
 
                       let gameOverDiv = document.createElement('div')
-                      gameOverDiv.id = "gameover" 
+                      gameOverDiv.className = "gameover" 
                       gameOverDiv.innerText = "Game OVER Thank you for playing K9 Stroller"
                       gameOverDiv.style.textAlign = "center"
                       body.append(gameOverDiv)
@@ -132,6 +132,7 @@ fetch(`http://localhost:3000/characters`)
                       })
                       .then(resp => resp.json())
                       .then(newScore= (scores) =>{
+                            // debugger
                             scores.forEach(score =>{
                             let scoreLi = document.createElement("li")
                             let deleteButton = document.createElement("button")

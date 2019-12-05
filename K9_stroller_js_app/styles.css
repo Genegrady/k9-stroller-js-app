@@ -24,6 +24,12 @@ body {
     text-align: center;
     font-size: 30px;
 }
+.gameover{
+    font-family: 'Press Start 2P', cursive;
+    text-align: center;
+    font-size: 30px;
+    margin-top: 300px;
+}
 
 img.image {
     max-width:100%;
