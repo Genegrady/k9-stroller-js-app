@@ -56,11 +56,6 @@ fetch(`http://localhost:3000/characters`)
         cardButton.addEventListener(`click`, (event) => {
             body.innerHTML = " "
             body.append(header)
-            // let canvas = document.createElement("canvas")
-            // canvas.id = "game";
-            // canvas.width = 800;
-            // canvas.height = 800;
-            
             let sideDiv = document.createElement("div")
             sideDiv.className = "score"
             let scoreHeader = document.createElement("p")
@@ -83,16 +78,24 @@ fetch(`http://localhost:3000/characters`)
                 scoreLi.innerText = `${score.username}: ${score.amt}`
                 scoreUl.append(scoreLi)
             }))
-            // 
             
             body.append(sideDiv, leftSideDiv)
             canvasDrawing()
-            // debugger
             var downloadTimer = setInterval(function(){
                 timeLeft -= 1;
                     if(timeLeft <= 0){
                       clearInterval(downloadTimer, card);
                       let name = window.prompt("Please Enter Your Name")
+                      let grabCanvas = document.querySelector('#game')
+                      grabCanvas.parentNode.removeChild(grabCanvas)
+
+                      let gameOverDiv = document.createElement('div')
+                      gameOverDiv.id = "gameover" 
+                      gameOverDiv.innerText = "Game OVER Thank you for playing K9 Stroller"
+                      gameOverDiv.style.textAlign = "center"
+                      body.append(gameOverDiv)
+
+                      
                       fetch(`http://localhost:3000/characters/${card.id}/scores`, {
                        method:'POST',
                        headers: { 
@@ -106,8 +109,6 @@ fetch(`http://localhost:3000/characters`)
                       })
                       .then(resp => resp.json())
                       .then(newScore=>{
-                        //    debugger
-
                            card.scores.push({username: name, amt: score})
                            scoreUl.innerHTML = ''
                            card.scores.forEach((score) => {
@@ -117,12 +118,9 @@ fetch(`http://localhost:3000/characters`)
                             scoreLi.innerText = `${score.username}: ${score.amt}`
                             scoreUl.append(scoreLi)
                            })
-                            
                       }
                       )
               }}, 1000);
-
-            // debugger
             })
             
 
@@ -130,3 +128,4 @@ fetch(`http://localhost:3000/characters`)
 
 
 })
+
