@@ -132,7 +132,7 @@ fetch(`http://localhost:3000/characters`)
                       })
                       .then(resp => resp.json())
                       .then(newScore= (scores) =>{
-                            // debugger
+                          debugger
                             scores.forEach(score =>{
                             let scoreLi = document.createElement("li")
                             let deleteButton = document.createElement("button")
