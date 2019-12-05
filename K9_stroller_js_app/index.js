@@ -1,5 +1,5 @@
 let body = document.querySelector("body")
-body.style.backgroundImage = "url('https://3.bp.blogspot.com/-sbUTuZkZE7w/WoCOgbGpZnI/AAAAAAAAD6o/e8h4wg67xro8Q9wK4ya2nJDTm7yR1TKewCLcBGAs/s1600/erfrischungsgetraenk_minus_com_iDLpq7jh8LiZZ.jpg')"
+body.style.backgroundImage = "url('https://media.giphy.com/media/19J1ZOQRQYxYQ/giphy.gif')"
 body.style.backgroundSize="100%";
 body.style.backgroundRepeat="absolute";
 let header = document.createElement("div")

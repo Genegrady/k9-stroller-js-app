@@ -42,13 +42,14 @@ var gameMap = [
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 
 ];
-var tileW = 20, tileH = 20;
-var mapW = 40, mapH = 40;
-var currentSecond = 0, frameCount = 0, framesLastSecond = 0, lastFrameTime = 0; score = 0
+let tileW = 20, tileH = 20;
+let mapW = 40, mapH = 40;
+let currentSecond = 0, frameCount = 0, framesLastSecond = 0, lastFrameTime = 0; score = 0
+let timeLeft = 1000;
 
 var tileset = null, tilesetURL = "/Users/Owner/Desktop/k9stroller/K9_stroller_js_app/tileset.png", tilesetLoaded = false;
 
-var floorTypes = {
+let floorTypes = {
 	solid	: 0,
 	path	: 1,
 	water	: 2,
@@ -59,7 +60,7 @@ var floorTypes = {
 	conveyorR	: 7
 
 };
-var tileTypes = {
+let tileTypes = {
 	0 : { colour:"#685b48", floor:floorTypes.solid, sprite:[{x:0,y:0,w:40,h:40}]	},
 	1 : { colour:"#5aa457", floor:floorTypes.path,	sprite:[{x:40,y:0,w:40,h:40}]	},
 	2 : { colour:"#e8bd7a", floor:floorTypes.path,	sprite:[{x:80,y:0,w:40,h:40}]	},
@@ -88,7 +89,7 @@ var tileTypes = {
 		]}
 };
 
-var directions = {
+let directions = {
 	up		: 0,
 	right	: 1,
 	down	: 2,
@@ -96,14 +97,14 @@ var directions = {
 };
 
 
-var keysDown = {
+let keysDown = {
 	37 : false,
 	38 : false,
 	39 : false,
 	40 : false
 };
 
-var viewport = {
+let viewport = {
 	screen		: [0,0],
 	startTile	: [0,0],
 	endTile		: [0,0],
@@ -112,7 +113,7 @@ var viewport = {
 		this.offset[0] = Math.floor((this.screen[0]/2) - px);
 		this.offset[1] = Math.floor((this.screen[1]/2) - py);
 
-		var tile = [ Math.floor(px/tileW), Math.floor(py/tileH) ];
+		let tile = [ Math.floor(px/tileW), Math.floor(py/tileH) ];
 
 		this.startTile[0] = tile[0] - 1 - Math.ceil((this.screen[0]/2) / tileW);
 		this.startTile[1] = tile[1] - 1 - Math.ceil((this.screen[1]/2) / tileH);
@@ -128,16 +129,16 @@ var viewport = {
 	}
 };
 
-var player = new Character();
+let player = new Character();
 
 function Character()
 {
 	this.tileFrom	= [1,1];
 	this.tileTo		= [1,1];
 	this.timeMoved	= 0;
-	this.dimensions	= [30,30];
-	this.position	= [45,45];
-	this.delayMove	= 50;
+	this.dimensions	= [20,20];
+	this.position	= [20,20];
+	this.delayMove	= 100;
 	this.direction	= directions.up;
 
 	this.sprites = {};
@@ -161,7 +162,7 @@ Character.prototype.processMovement = function(t)
 	{
 		this.placeAt(this.tileTo[0], this.tileTo[1]);
 
-		var tileFloor = tileTypes[gameMap[toIndex(this.tileFrom[0], this.tileFrom[1])]].floor;
+		let tileFloor = tileTypes[gameMap[toIndex(this.tileFrom[0], this.tileFrom[1])]].floor;
 
 		if(tileFloor==floorTypes.ice)
 		{
@@ -182,12 +183,12 @@ Character.prototype.processMovement = function(t)
 
 		if(this.tileTo[0] != this.tileFrom[0])
 		{
-			var diff = (tileW / this.delayMove) * (t-this.timeMoved);
+			let diff = (tileW / this.delayMove) * (t-this.timeMoved);
 			this.position[0]+= (this.tileTo[0]<this.tileFrom[0] ? 0 - diff : diff);
 		}
 		if(this.tileTo[1] != this.tileFrom[1])
 		{
-			var diff = (tileH / this.delayMove) * (t-this.timeMoved);
+			let diff = (tileH / this.delayMove) * (t-this.timeMoved);
 			this.position[1]+= (this.tileTo[1]<this.tileFrom[1] ? 0 - diff : diff);
 		}
 
@@ -288,16 +289,14 @@ let canvasDrawing = function()
 		
 };
 
-let timeLeft = 15;
-
 loadTile = function()
 {
 tileset = new Image();
-	tileset.onerror = function()
-	{
-		ctx = null;
-		alert("Failed loading tileset.");
-	};
+	// tileset.onerror = function()
+	// {
+	// 	ctx = null;
+	// 	alert("Failed loading tileset.");
+	// };
 	tileset.onload = function() { tilesetLoaded = true; };
 	tileset.src = tilesetURL;
 
@@ -307,7 +306,7 @@ tileset = new Image();
 
 		if(tileTypes[x].animated)
 		{
-			var t = 0;
+			let t = 0;
 			
 			for(s in tileTypes[x].sprite)
 			{
@@ -328,9 +327,9 @@ function drawGame()
 	if(ctx==null) { return; }
 	if(!tilesetLoaded) { requestAnimationFrame(drawGame); return; }
 
-	var currentFrameTime = Date.now();
-	var timeElapsed = currentFrameTime - lastFrameTime;
-	var sec = Math.floor(Date.now()/1000);
+	let currentFrameTime = Date.now();
+	let timeElapsed = currentFrameTime - lastFrameTime;
+	let sec = Math.floor(Date.now()/1000);
 	if(sec!=currentSecond)
 	{
 		currentSecond = sec;
@@ -353,12 +352,12 @@ function drawGame()
 	ctx.fillStyle = "#000000";
 	ctx.fillRect(0, 0, viewport.screen[0], viewport.screen[1]);
 
-	for(var y = viewport.startTile[1]; y <= viewport.endTile[1]; ++y)
+	for(let y = viewport.startTile[1]; y <= viewport.endTile[1]; ++y)
 	{
-		for(var x = viewport.startTile[0]; x <= viewport.endTile[0]; ++x)
+		for(let x = viewport.startTile[0]; x <= viewport.endTile[0]; ++x)
 		{
-			var tile = tileTypes[gameMap[toIndex(x,y)]];
-			var sprite = getFrame(tile.sprite, tile.spriteDuration,
+			let tile = tileTypes[gameMap[toIndex(x,y)]];
+			let sprite = getFrame(tile.sprite, tile.spriteDuration,
 				currentFrameTime, tile.animated);
 			ctx.drawImage(tileset,
 				sprite.x, sprite.y, sprite.w, sprite.h,
@@ -367,7 +366,7 @@ function drawGame()
 		}
 	}
 
-	var sprite = player.sprites[player.direction];
+	let sprite = player.sprites[player.direction];
 	ctx.drawImage(tileset,
 		sprite[0].x, sprite[0].y, sprite[0].w, sprite[0].h,
 		viewport.offset[0] + player.position[0], viewport.offset[1] + player.position[1],
