@@ -113,7 +113,7 @@ fetch(`http://localhost:3000/characters`)
                       grabCanvas.parentNode.removeChild(grabCanvas)
 
                       let gameOverDiv = document.createElement('div')
-                      gameOverDiv.id = "gameover" 
+                      gameOverDiv.className = "gameover" 
                       gameOverDiv.innerText = "Game OVER Thank you for playing K9 Stroller"
                       gameOverDiv.style.textAlign = "center"
                       body.append(gameOverDiv)
@@ -132,7 +132,22 @@ fetch(`http://localhost:3000/characters`)
                       })
                       .then(resp => resp.json())
                       .then(newScore= (scores) =>{
-                          debugger
+                          
+                            function compare(a, b){
+                                const scoreA = a.username.toUpperCase();
+                                const scoreB = b.username.toUpperCase();
+
+                                let comparison = 0
+
+                                if (scoreA > scoreB) {
+                                    comparison = 1;
+                                } else if (scoreA < scoreB) {
+                                    comparison = -1;
+                                }
+                                return comparison;
+                            }
+                            
+                            // debugger
                             scores.forEach(score =>{
                             let scoreLi = document.createElement("li")
                             let deleteButton = document.createElement("button")
@@ -146,7 +161,7 @@ fetch(`http://localhost:3000/characters`)
                             
                             scoreLi.append(deleteButton)
                             scoreUl.append(scoreLi)
-                            // debugger
+                            debugger
                             scoreLi.addEventListener("click", (e) => {
                                 
                             })
@@ -163,7 +178,7 @@ fetch(`http://localhost:3000/characters`)
                             })
                             // let lastScore = scores.slice(-1)[0]
                             
-                           
+                           scores.sort(compare)
                             
                         //   console.log(scoreArray)
                            
