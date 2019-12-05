@@ -99,13 +99,9 @@ fetch(`http://localhost:3000/characters`)
                         .then(()=>{scoreLi.remove})
                 })
             }))
-                
-            // 
             
             body.append(sideDiv, leftSideDiv)
             canvasDrawing()
-            // debugger
-            
             var downloadTimer = setInterval(function(){
                 
                 timeLeft -= 1;
@@ -113,12 +109,16 @@ fetch(`http://localhost:3000/characters`)
                       clearInterval(downloadTimer, card);
                       
                       let name = window.prompt("Please Enter Your Name")
-                      scoreUl.innerHTML = ""
-                      if (name == ""){
-                          name = "Guest"
-                      }
-                           
-                     
+                      let grabCanvas = document.querySelector('#game')
+                      grabCanvas.parentNode.removeChild(grabCanvas)
+
+                      let gameOverDiv = document.createElement('div')
+                      gameOverDiv.id = "gameover" 
+                      gameOverDiv.innerText = "Game OVER Thank you for playing K9 Stroller"
+                      gameOverDiv.style.textAlign = "center"
+                      body.append(gameOverDiv)
+
+                      
                       fetch(`http://localhost:3000/characters/${card.id}/scores`, {
                        method:'POST',
                        headers: { 
@@ -182,3 +182,4 @@ fetch(`http://localhost:3000/characters`)
 
 
 })
+
