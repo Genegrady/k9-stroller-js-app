@@ -16,6 +16,8 @@ cardHolder.className = "holder"
 let imageHolder = document.createElement('div')
 imageHolder.className = "imgholder"
 body.append(cardHolder, imageHolder)
+let scoreArray = []
+
 
 document.addEventListener(`DOMContentLoaded`, () => {
 
@@ -43,6 +45,9 @@ fetch(`http://localhost:3000/characters`)
     }
     function getSingleCard(card){
         // debugger
+        
+        
+        
         cardHolder.innerHTML = ""
         let cardName = document.createElement("h2")
         cardName.innerText  = card.name 
@@ -59,11 +64,6 @@ fetch(`http://localhost:3000/characters`)
         cardButton.addEventListener(`click`, (event) => {
             body.innerHTML = " "
             body.append(header)
-            // let canvas = document.createElement("canvas")
-            // canvas.id = "game";
-            // canvas.width = 800;
-            // canvas.height = 800;
-            
             let sideDiv = document.createElement("div")
             sideDiv.className = "score"
             let scoreHeader = document.createElement("p")
@@ -74,43 +74,51 @@ fetch(`http://localhost:3000/characters`)
             let leftSideDiv = document.createElement("div")
             leftSideDiv.className = "mazeimage"
             let mazeImg = document.createElement("img")
-            mazeImg.className = "image"
-            
+            mazeImg.className = "image" 
             mazeImg.src = card.image
             leftSideDiv.append(mazeImg)
             fetch(`http://localhost:3000/characters/${card.id}`)
             .then(resp => resp.json())
             .then(char => char.scores.forEach(score => {
                 let scoreLi = document.createElement("li")
-                let deleteButton = document.createElement("button")
-                deleteButton.className = "delete"
-                deleteButton.innerText = "x"
+                let newDeleteButton = document.createElement("button")
+                newDeleteButton.className = "newdelete"
+                newDeleteButton.innerText = "x"
                 scoreLi.className = "allscore"
                 scoreLi.innerText = `${score.username}: ${score.amt}`
-                scoreLi.append(deleteButton)
+                scoreLi.append(newDeleteButton)
                 scoreUl.append(scoreLi)
-                //     deleteButton.addEventListener("click", {
-            //         fetch(`http://localhost:3000/characters/${card.id}/scores`, {
-            //           method:'DELETE'
-            //     })
-            //     .then(r => r.json())
-            //     .then(() =>{
-            //         scoreLi.remove()
-            //     })
-            //     debugger
-            // })
-            // 
+                
+                                
+                    
+                newDeleteButton.addEventListener("click",(e) => {
+                    fetch(`http://localhost:3000/scores/${score.id}`, {
+                         method:'DELETE',
+                        })
+                         .then(resp => resp.json())
+                        .then(()=>{scoreLi.remove})
+                })
             }))
+                
             // 
             
             body.append(sideDiv, leftSideDiv)
             canvasDrawing()
             // debugger
+            
             var downloadTimer = setInterval(function(){
+                
                 timeLeft -= 1;
                     if(timeLeft <= 0){
                       clearInterval(downloadTimer, card);
+                      
                       let name = window.prompt("Please Enter Your Name")
+                      scoreUl.innerHTML = ""
+                      if (name == ""){
+                          name = "Guest"
+                      }
+                           
+                     
                       fetch(`http://localhost:3000/characters/${card.id}/scores`, {
                        method:'POST',
                        headers: { 
@@ -123,24 +131,50 @@ fetch(`http://localhost:3000/characters`)
                         })
                       })
                       .then(resp => resp.json())
-                      .then(newScore=>{
-                        //    debugger
-
-                           card.scores.push({username: name, amt: score})
-                           scoreUl.innerHTML = ''
-                           card.scores.forEach((score) => {
+                      .then(newScore= (scores) =>{
+                            scores.forEach(score =>{
                             let scoreLi = document.createElement("li")
+                            let deleteButton = document.createElement("button")
+                            deleteButton.className = "deleted"
+                            deleteButton.innerText = "x"
+                            // let updateButton = document.createElement("button")
+                            // updateButton.className = "update"
+                            // updateButton.innerText = "Change Username"
                             scoreLi.className = "allscore"
-                            
                             scoreLi.innerText = `${score.username}: ${score.amt}`
-                            scoreUl.append(scoreLi)
-                           })
                             
-                      }
+                            scoreLi.append(deleteButton)
+                            scoreUl.append(scoreLi)
+                            // debugger
+                            scoreLi.addEventListener("click", (e) => {
+                                
+                            })
+                            
+
+                            deleteButton.addEventListener("click",(e) => {
+                                fetch(`http://localhost:3000/scores/${score.id}`, {
+                                    method:'DELETE',
+                                     })
+                                    .then(resp => resp.json())
+                                    .then(()=> {scoreLi.remove()})
+                                   
+                            })
+                            })
+                            // let lastScore = scores.slice(-1)[0]
+                            
+                           
+                            
+                        //   console.log(scoreArray)
+                           
+                           }
+                      
+                          
+                           
+                      
                       )
               }}, 1000);
 
-            // debugger
+           
             })
             
 

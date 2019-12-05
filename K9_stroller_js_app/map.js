@@ -138,7 +138,7 @@ let canvasDrawing = function()
 };
 //TIME_______________________________________________________
 
-let timeLeft = 10;
+let timeLeft = 1;
 	// var downloadTimer = setInterval(function(){
   	// timeLeft -= 1;
   	// 	if(timeLeft <= 0){
