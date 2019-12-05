@@ -107,7 +107,7 @@ fetch(`http://localhost:3000/characters`)
                 timeLeft -= 1;
                     if(timeLeft <= 0){
                       clearInterval(downloadTimer, card);
-                      
+                      scoreUl.innerHTML = ""
                       let name = window.prompt("Please Enter Your Name")
                       let grabCanvas = document.querySelector('#game')
                       grabCanvas.parentNode.removeChild(grabCanvas)
@@ -132,6 +132,7 @@ fetch(`http://localhost:3000/characters`)
                       })
                       .then(resp => resp.json())
                       .then(newScore= (scores) =>{
+                          debugger
                             scores.forEach(score =>{
                             let scoreLi = document.createElement("li")
                             let deleteButton = document.createElement("button")
