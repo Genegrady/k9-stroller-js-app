@@ -15,9 +15,12 @@ let cardHolder = document.createElement("div")
 cardHolder.className = "holder"
 let imageHolder = document.createElement('div')
 imageHolder.className = "imgholder"
-body.append(cardHolder, imageHolder)
+let instructions = document.createElement('div')
+instructions.className = "instructions"
+instructions.innerText = "HELLO FELLOW PLAYERS!!! THE OBJECTIVE OF THIS GAME IS TO REACH THE END TILE AT THE BOTTOM RIGHT OF THE MAZE BEFORE TIME RUNS OUT. YOU CAN CONTROL YOUR CHARACTER USING THE ARROW KEYS. THE TIMER WILL START AS SOON AS YOU CLICK PLAY NOW. GOOD LUCK. "
+body.append(cardHolder, imageHolder, instructions)
 let scoreArray = []
-
+cardHolder.style.display = "none"
 
 document.addEventListener(`DOMContentLoaded`, () => {
 
@@ -39,6 +42,7 @@ fetch(`http://localhost:3000/characters`)
         imageWindow.append(cardImage)
         imageHolder.append(imageWindow)
         cardImage.addEventListener(`click`, (event) => {
+            cardHolder.style.display = ""
             getSingleCard(card)
 
         })
@@ -58,7 +62,7 @@ fetch(`http://localhost:3000/characters`)
         cardBio.className = "bio"
         let cardButton = document.createElement("button")
         cardButton.className = "button"
-        cardButton.innerText = "Choose Character"
+        cardButton.innerText = "PLAY NOW"
         cardHolder.append(cardName, cardExp, cardBio, cardButton)
 
         cardButton.addEventListener(`click`, (event) => {
@@ -81,23 +85,23 @@ fetch(`http://localhost:3000/characters`)
             .then(resp => resp.json())
             .then(char => char.scores.forEach(score => {
                 let scoreLi = document.createElement("li")
-                let newDeleteButton = document.createElement("button")
-                newDeleteButton.className = "newdelete"
-                newDeleteButton.innerText = "x"
+                // let newDeleteButton = document.createElement("button")
+                // newDeleteButton.className = "newdelete"
+                // newDeleteButton.innerText = "x"
                 scoreLi.className = "allscore"
                 scoreLi.innerText = `${score.username}: ${score.amt}`
-                scoreLi.append(newDeleteButton)
+                // scoreLi.append(newDeleteButton)
                 scoreUl.append(scoreLi)
                 
                                 
                     
-                newDeleteButton.addEventListener("click",(e) => {
-                    fetch(`http://localhost:3000/scores/${score.id}`, {
-                         method:'DELETE',
-                        })
-                         .then(resp => resp.json())
-                        .then(()=>{scoreLi.remove})
-                })
+                // newDeleteButton.addEventListener("click",(e) => {
+                //     fetch(`http://localhost:3000/scores/${score.id}`, {
+                //          method:'DELETE',
+                //         })
+                //          .then(resp => resp.json())
+                //         .then(()=>{scoreLi.remove})
+                // })
             }))
             
             body.append(sideDiv, leftSideDiv)
@@ -116,8 +120,17 @@ fetch(`http://localhost:3000/characters`)
                       gameOverDiv.className = "gameover" 
                       gameOverDiv.innerText = "Game OVER Thank you for playing K9 Stroller"
                       gameOverDiv.style.textAlign = "center"
-                      body.append(gameOverDiv)
+                      
+                      let reloadLink = document.createElement("a")
+                      reloadLink.href = "file:///Users/rubenvallejo/Desktop/AccessLabs/mod-3/mod3project/k9-stroller-js-app/K9_stroller_js_app/index.html"
+                      reloadLink.innerText = "Try Again"
+                      reloadLink.style.textAlign = "center"
 
+                      let breakTag = document.createElement("br")
+                      gameOverDiv.append(breakTag, reloadLink)
+                      
+                      body.append(gameOverDiv)
+                      
                       
                       fetch(`http://localhost:3000/characters/${card.id}/scores`, {
                        method:'POST',
@@ -161,7 +174,6 @@ fetch(`http://localhost:3000/characters`)
                             
                             scoreLi.append(deleteButton)
                             scoreUl.append(scoreLi)
-                            debugger
                             scoreLi.addEventListener("click", (e) => {
                                 
                             })

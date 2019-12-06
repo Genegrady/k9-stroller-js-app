@@ -37,17 +37,35 @@ var gameMap = [
 	0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1, 1, 1, 1, 9, 1, 3, 1, 3, 1, 3, 1, 3, 1, 1, 1, 1, 4, 4, 4, 4, 4, 1, 4, 1, 2, 0,
 	0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1, 1, 1, 1, 9, 1, 3, 1, 3, 1, 3, 1, 3, 1, 1, 3, 3, 4, 4, 4, 4, 4, 1, 4, 4, 2, 0,
 	0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1, 1, 1, 1, 9, 1, 3, 1, 3, 1, 3, 1, 1, 1, 1, 3, 1, 4, 4, 4, 4, 4, 1, 1, 1, 2, 0,
-	0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 2, 2, 2, 2, 9, 1, 1, 1, 3, 2, 2, 2, 2, 2, 2, 3, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 0,
-	0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1, 1, 1, 1, 9, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 1, 1, 0,
+	0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 2, 2, 2, 2, 9, 1, 1, 1, 3, 2, 2, 2, 2, 2, 2, 3, 1, 1, 1, 1, 1, 1, 1, 3, 2, 2, 0,
+	0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1, 1, 1, 1, 9, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 2, 2, 0,
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 
 ];
 let tileW = 20, tileH = 20;
 let mapW = 40, mapH = 40;
 let currentSecond = 0, frameCount = 0, framesLastSecond = 0, lastFrameTime = 0; score = 0
-let timeLeft = 1000;
+let timeLeft = 20;
 
-var tileset = null, tilesetURL = "/Users/Owner/Desktop/k9stroller/K9_stroller_js_app/tileset.png", tilesetLoaded = false;
+let tileEvents = {
+	1518 : function(c) { c.placeAt(1,1);},
+	121 : drawBridge,
+	740 : function(c) { c.placeAt(1,1);},
+	648 : function(c) { c.placeAt(37,31);}
+};
+
+function drawBridge()
+{
+	gameMap[toIndex(6,6)] = (gameMap[toIndex(6,6)]==4 ? 2 : 4);
+
+};
+
+// function endGame()
+// {
+// 	console.log("hello there didnt see you")
+// }
+
+var tileset = null, tilesetURL = "/Users/rubenvallejo/Desktop/AccessLabs/mod-3/mod3project/k9-stroller-js-app/K9_stroller_js_app/tileset.png", tilesetLoaded = false;
 
 let floorTypes = {
 	solid	: 0,
@@ -161,6 +179,11 @@ Character.prototype.processMovement = function(t)
 	if((t-this.timeMoved)>=this.delayMove)
 	{
 		this.placeAt(this.tileTo[0], this.tileTo[1]);
+
+		if(typeof tileEvents[toIndex(this.tileTo[0], this.tileTo[1])]!='undefined')
+		{
+			tileEvents[toIndex(this.tileTo[0], this.tileTo[1])](this);
+		}
 
 		let tileFloor = tileTypes[gameMap[toIndex(this.tileFrom[0], this.tileFrom[1])]].floor;
 
