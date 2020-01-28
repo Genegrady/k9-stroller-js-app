@@ -248,6 +248,10 @@ Character.prototype.moveDirection = function(d, t) {
 	}
 };
 
+Character.prototype.gameover = function(){
+	
+}
+
 function toIndex(x, y)
 {
 	return((y * mapW) + x);

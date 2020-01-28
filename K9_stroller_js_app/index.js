@@ -104,7 +104,7 @@ fetch(`http://localhost:3000/characters`)
             canvasDrawing()
             var downloadTimer = setInterval(function(){
                 
-                timeLeft -= 1;
+                timeLeft -= 100;
                     if(timeLeft <= 0){
                       clearInterval(downloadTimer, card);
                       scoreUl.innerHTML = ""
