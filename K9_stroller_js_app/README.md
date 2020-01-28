@@ -3,10 +3,13 @@ K9 Stroller Maze Game (FrontEnd)
 
 This application is a javascript maze game 
 
-Features
+Features:
+
 Multiple Characters
+
 Custom CSS
-Dynamic Maze game 
+
+Full CRUD 
 
 DEMO
 
@@ -16,18 +19,23 @@ Instructions
 1. A user can choose a character
 2. One has to reach the end of the game before time runs out!
 
-Technologies
+Technologies:
+
 Vanilla JS
+
 Custom CSS
 
-Installation
+Installation:
+
 To view locally, follow the instructions below
 
 Clone repository
+
 bundle install
+
 open index.html
 
 Server needs to run on http://localhost:3000
 
-Go to backend repository to view backend installation: View backend
-Built By: Eugene Grady and Ruben Vallejo
+Go to backend repository to view backend installation: [View backend](https://github.com/Genegrady/k9_stroller_api)
+Built By: [Eugene Grady](https://github.com/Genegrady) and Ruben Vallejo(https://github.com/RubenV-dev)
