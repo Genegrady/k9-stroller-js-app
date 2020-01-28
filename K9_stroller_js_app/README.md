@@ -38,4 +38,5 @@ open index.html
 Server needs to run on http://localhost:3000
 
 Go to backend repository to view backend installation: [View backend](https://github.com/Genegrady/k9_stroller_api)
+
 Built By: [Eugene Grady](https://github.com/Genegrady) and Ruben Vallejo(https://github.com/RubenV-dev)
