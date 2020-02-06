@@ -118,7 +118,10 @@ fetch(`http://localhost:3000/characters`)
 
                       let gameOverDiv = document.createElement('div')
                       gameOverDiv.className = "gameover" 
-                      gameOverDiv.innerText = "Game OVER Thank you for playing K9 Stroller"
+                      let gameOverImg = document.createElement("img")
+                      gameOverImg.className = "gameoverimg"
+                      gameOverImg.src = "https://steamuserimages-a.akamaihd.net/ugc/58861589742844561/1769ED83B47246A11765311A2AA947DBADF956C0/"
+                    //   gameOverDiv.innerText = "Game OVER Thank you for playing K9 Stroller"
                       gameOverDiv.style.textAlign = "center"
                       
                       let reloadLink = document.createElement("a")
@@ -127,7 +130,7 @@ fetch(`http://localhost:3000/characters`)
                       reloadLink.style.textAlign = "center"
 
                       let breakTag = document.createElement("br")
-                      gameOverDiv.append(breakTag, reloadLink)
+                      gameOverDiv.append(gameOverImg, breakTag, reloadLink)
                       
                       body.append(gameOverDiv)
                       

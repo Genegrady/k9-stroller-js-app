@@ -78,7 +78,10 @@ img.image {
     mix-blend-mode: multiply;  
    
 }
-
+.gameoverimg{
+    height: 200px;
+  width: 50%;
+}
 .instructions {
     font-family: 'Press Start 2P', cursive;
     text-align: center;
